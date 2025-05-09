@@ -1,28 +1,26 @@
-
-
 module DE1_SoC_Computer
 (
-        // Clock pin.
-    input          CLOCK_50;
+    // Clock pin.
+    input          CLOCK_50,
 
     // HPS Pins	
     // DDR3 SDRAM
-    output [14: 0] HPS_DDR3_ADDR;
-    output [ 2: 0] HPS_DDR3_BA;
-    output         HPS_DDR3_CAS_N;
-    output         HPS_DDR3_CKE;
-    output         HPS_DDR3_CK_N;
-    output         HPS_DDR3_CK_P;
-    output         HPS_DDR3_CS_N;
-    output [ 3: 0] HPS_DDR3_DM;
-    inout  [31: 0] HPS_DDR3_DQ;
-    inout  [ 3: 0] HPS_DDR3_DQS_N;
-    inout  [ 3: 0] HPS_DDR3_DQS_P;
-    output         HPS_DDR3_ODT;
-    output         HPS_DDR3_RAS_N;
-    output         HPS_DDR3_RESET_N;
-    input          HPS_DDR3_RZQ;
-    output         HPS_DDR3_WE_N;
+    output [14: 0] HPS_DDR3_ADDR,
+    output [ 2: 0] HPS_DDR3_BA,
+    output         HPS_DDR3_CAS_N,
+    output         HPS_DDR3_CKE,
+    output         HPS_DDR3_CK_N,
+    output         HPS_DDR3_CK_P,
+    output         HPS_DDR3_CS_N,
+    output [ 3: 0] HPS_DDR3_DM,
+    inout  [31: 0] HPS_DDR3_DQ,
+    inout  [ 3: 0] HPS_DDR3_DQS_N,
+    inout  [ 3: 0] HPS_DDR3_DQS_P,
+    output         HPS_DDR3_ODT,
+    output         HPS_DDR3_RAS_N,
+    output         HPS_DDR3_RESET_N,
+    input          HPS_DDR3_RZQ,
+    output         HPS_DDR3_WE_N
 );
     //-------------------------------------
     //  Internal nets.
@@ -41,8 +39,8 @@ module DE1_SoC_Computer
     conv_top CT (
         .i_clk              ( CLOCK_50             ),
         .i_arstn            ( ~lw_pio_write_1[27]  ),
-    	 .i_arstn_perf       ( ~lw_pio_write_1[28 ] ),
-    	 .i_enable_count2    ( lw_pio_write_1[29]   ),
+        .i_arstn_perf       ( ~lw_pio_write_1[28 ] ),
+        .i_enable_count2    ( lw_pio_write_1[29]   ),
         .i_ready            ( lw_pio_write_1[26]   ),
         .i_valid            ( lw_pio_write_1[25]   ),
         .i_bit_X            ( lw_pio_write_0[24:0] ),
@@ -50,8 +48,8 @@ module DE1_SoC_Computer
         .o_conv             ( s_o_conv             ),
         .o_ready            ( s_o_ready            ),
         .o_valid            ( s_o_valid            ),
-    	 .o_perf_cycle_count ( lw_pio_read_cycle    ),
-    	 .o_perf_cycle_count2( lw_pio_read_cycle2   )
+        .o_perf_cycle_count ( lw_pio_read_cycle    ),
+        .o_perf_cycle_count2( lw_pio_read_cycle2   )
     );
 
     assign lw_pio_read = {28'b0, s_o_ready, s_o_valid, s_o_conv};
@@ -60,8 +58,8 @@ module DE1_SoC_Computer
 
     ARM_HPS The_System (
     	// Global signals
-    	.system_pll_ref_clk_clk                        (CLOCK_50  ),
-    	.system_pll_ref_reset_reset                    (1'b0      ),
+    	.system_pll_ref_clk_clk                        (CLOCK_50            ),
+    	.system_pll_ref_reset_reset                    (1'b0                ),
     
     	// PIO ports
     	.lw_pio_read_external_connection_export        ( lw_pio_read        ),
